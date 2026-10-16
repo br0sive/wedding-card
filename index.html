@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maleesha & Sahan - Exact Font & Vector Layout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Exact match for the crossed-W serif ("MAXWELL", "FOLLOW") and flat-top "3" ("23", "6.30") -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cormorant+SC:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #ece9e2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .controls {
+      background: #fff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 14px;
+    }
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .controls select {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 13.5px;
+    }
+    .controls button {
+      background: #1f1f1f;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .controls button:hover { background: #3a3a3a; }
+    .sheet {
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+      max-width: 100%;
+      overflow: auto;
+    }
+    svg {
+      display: block;
+      width: 1120px;
+      height: 820px;
+    }
+    @media print {
+      body { background: none; padding: 0; }
+      .controls { display: none; }
+      .sheet { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="controls">
+    <label>
+      View Mode:
+      <select id="viewMode" onchange="updateLayout()">
+        <option value="overlay">Overlaid Preview</option>
+        <option value="innerOnly">Inner Card Only (Print Ready)</option>
+        <option value="outerOnly">Outer Card Only (Print Ready)</option>
+        <option value="both">Side-by-Side (Inner Card + Full-Width Outer Cover)</option>
+      </select>
+    </label>
+    <label>
+      <input type="checkbox" id="showGuide" onchange="updateLayout()">
+      Show Center Alignment Axis
+    </label>
+    <button onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <div class="sheet">
+    <svg id="mainSvg" viewBox="0 0 1120 820" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          /* Exact match for the bold brush script with unconnected capital M & S and looped h/l/e */
+          .script-names {
+            font-family: 'Dancing Script', 'Berkshire Swash', cursive;
+            font-size: 64px;
+            font-weight: 700;
+            fill: #141212;
+            letter-spacing: 0.6px;
+          }
+          .script-amp {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 38px;
+            font-weight: 600;
+            fill: #141212;
+          }
+          /* Cormorant SC & Cormorant Garamond have the exact crossed-W and classic numerals */
+          .body-light {
+            font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
+            font-size: 12.2px;
+            font-weight: 500;
+            letter-spacing: 1.1px;
+            fill: #221f1f;
+          }
+          .day-time {
+            font-family: 'Cormorant SC', serif;
+            font-size: 18.5px;
+            font-weight: 700;
+            letter-spacing: 1.3px;
+            fill: #1a1818;
+          }
+          .month-text {
+            font-family: 'Cormorant SC', serif;
+            font-size: 27px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            fill: #1a1818;
+          }
+          .year-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 29px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            fill: #1a1818;
+            font-variant-numeric: lining-nums;
+          }
+          .date-23 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 600;
+            fill: #1a1818;
+            font-variant-numeric: lining-nums;
+          }
+          .event-time {
+            font-family: 'Cormorant SC', serif;
+            font-size: 13.5px;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            fill: #221f1f;
+          }
+          .venue-bold {
+            font-family: 'Cormorant SC', serif;
+            font-size: 14.5px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
+            fill: #1a1818;
+          }
+          .venue-sub {
+            font-family: 'Cormorant SC', serif;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 1.1px;
+            fill: #221f1f;
+          }
+          .reception-follow {
+            font-family: 'Cormorant SC', serif;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            fill: #221f1f;
+          }
+          .rsvp-header {
+            font-family: 'Cormorant SC', serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2.2px;
+            fill: #221f1f;
+          }
+          .rsvp-nums {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: 0.9px;
+            fill: #221f1f;
+            font-variant-numeric: lining-nums;
+          }
+        </style>
+
+        <!-- Exact Traced Hand-Drawn "23 / 01 / 27" Vector Artwork from Original Design -->
+        <g id="handDrawn230127" fill="none" stroke="#221f1f" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- "2" in 23 -->
+          <path d="M 800,398 C 802,370 848,365 852,395 C 855,420 815,448 792,468 C 812,463 842,464 865,469" />
+          <!-- "3" in 23 -->
+          <path d="M 895,382 C 912,370 942,372 940,395 C 938,412 918,418 908,420 C 928,422 948,434 944,454 C 940,472 908,474 886,462" />
+
+          <!-- "0" in 01 -->
+          <path d="M 918,494 C 892,496 882,532 886,562 C 890,590 924,596 938,572 C 950,550 944,504 918,494 Z" />
+          <!-- "1" in 01 -->
+          <path d="M 962,516 L 982,495 L 980,592" />
+
+          <!-- "2" in 27 -->
+          <path d="M 822,636 C 824,608 870,603 874,633 C 877,658 837,686 814,706 C 834,701 864,702 887,707" />
+          <!-- "7" in 27 -->
+          <path d="M 904,615 C 926,616 948,615 966,615 C 948,645 932,678 922,712" />
+        </g>
+      </defs>
+
+      <!-- ================= LEFT: INNER CARD (Width = 500px, X: 40 to 540, Exact Center = 290) ================= -->
+      <g id="innerCardGroup">
+        <!-- Arch Outline -->
+        <path d="M 40,780 L 40,280 A 250,250 0 0,1 540,280 L 540,780 Z" 
+              fill="#ffffff" stroke="#221f1f" stroke-width="1" />
+
+        <!-- Center Alignment Guide (X = 290) -->
+        <line id="axisGuide" x1="290" y1="20" x2="290" y2="795" stroke="#e6005c" stroke-width="1.2" stroke-dasharray="6,6" style="display: none;" />
+
+        <!-- Top Script Names (Centered at X = 290) -->
+        <g text-anchor="middle">
+          <text x="290" y="130" class="script-names">Maleesha</text>
+          <text x="290" y="180" class="script-amp">&amp;</text>
+          <text x="290" y="232" class="script-names">Sahan</text>
+        </g>
+
+        <!-- Body Text (100% Centered on X = 290, Safely Below Outer Cover Curve) -->
+        <g text-anchor="middle">
+          <text x="290" y="294" class="body-light">Together With Their Parents</text>
+          <text x="290" y="314" class="body-light">MRS NITHAMALEE &amp; THE LATE MR. MAXWELL BAKELMUN</text>
+          <text x="290" y="334" class="body-light">and</text>
+          <text x="290" y="354" class="body-light">MRS. NILIMI &amp; MR. SURESH AMARASEKARA</text>
+
+          <text x="290" y="394" class="body-light">Request The Honor Of Your Presence</text>
+
+          <!-- Dotted Line (Centered at X = 290: from X=130 to X=450) -->
+          <line x1="130" y1="432" x2="450" y2="432" stroke="#221f1f" stroke-width="1.2" stroke-dasharray="1.5, 3" />
+
+          <!-- Date Block (Centered on "| 23 |" at X = 290) -->
+          <text x="290" y="462" class="day-time">saturday</text>
+
+          <!-- Vertical Divider Bars equidistant from X = 290 (X = 254 and X = 326) -->
+          <line x1="254" y1="472" x2="254" y2="540" stroke="#1a1818" stroke-width="2.2" />
+          <text x="290" y="521" class="date-23">23</text>
+          <line x1="326" y1="472" x2="326" y2="540" stroke="#1a1818" stroke-width="2.2" />
+
+          <!-- JANUARY and 2027 balanced symmetrically on either side of the bars -->
+          <text x="238" y="514" text-anchor="end" class="month-text">JAN</text>
+          <text x="346" y="515" text-anchor="start" class="year-text">2027</text>
+
+          <!-- Church Ceremony Block -->
+          <text x="290" y="568" class="event-time">at 4.00 p.m.</text>
+
+          <!-- Church Line (Exact Dual-Size Styling from Original) -->
+          <text x="290" y="590">
+            <tspan class="venue-bold">ST. MARY'S CHURCH, </tspan>
+            <tspan class="venue-sub">BAMBALAPITIYA</tspan>
+          </text>
+
+          <!-- Reception Block (Exact Dual-Size Styling from Original) -->
+          <text x="290" y="622" class="reception-follow">Reception To Follow</text>
+          <text x="290" y="644">
+            <tspan class="venue-bold">AT GRAND BALLROOM - THE HILTON, </tspan>
+            <tspan class="venue-sub">COLOMBO</tspan>
+          </text>
+          <text x="290" y="666" class="event-time">from 6.30 p.m. onwards</text>
+
+          <!-- RSVP Block with QR Code Holder -->
+          <text x="290" y="692" class="rsvp-header">RSVP</text>
+
+          <!-- QR Code Holder (Centered at X = 290; change "qr-code.png" to your custom QR code image file or URL) -->
+          <rect x="263" y="697" width="54" height="54" fill="#ffffff" />
+          <image id="rsvpQrCode" href="qr-code.png" x="263" y="697" width="54" height="54" preserveAspectRatio="xMidYMid meet" />
+
+          <text x="290" y="765" class="rsvp-nums">NITHAMALEE : 070-2207556  |  SURESH : 077-3633584</text>
+        </g>
+      </g>
+
+      <!-- ================= RIGHT: FULL-WIDTH OUTER COVER (Same 500px Width: X: 580 to 1080) ================= -->
+      <g id="outerCoverSideGroup">
+        <!-- Center Alignment Guide for Outer Cover (X = 830) -->
+        <line id="outerAxisGuide" x1="830" y1="20" x2="830" y2="795" stroke="#e6005c" stroke-width="1.2" stroke-dasharray="6,6" style="display: none;" />
+
+        <!-- Full-Width Outer Cover Cutline (Flush with inner card at Y=280, ample space below "Sahan") -->
+        <path d="M 580,780 L 580,330 C 670,260 900,235 1080,280 L 1080,780 Z" 
+              fill="#ffffff" stroke="#221f1f" stroke-width="1" />
+        <use href="#handDrawn230127" />
+      </g>
+
+      <!-- ================= OVERLAY PREVIEW GROUP (Hidden unless "Overlaid Preview" is selected) ================= -->
+      <g id="outerCoverOverlayGroup" style="display: none;" transform="translate(-540, 0)">
+        <path d="M 580,780 L 580,330 C 670,260 900,235 1080,280 L 1080,780 Z" 
+              fill="rgba(240, 234, 224, 0.88)" stroke="#221f1f" stroke-width="1.3" />
+        <use href="#handDrawn230127" />
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    function updateLayout() {
+      const mode = document.getElementById('viewMode').value;
+      const showGuide = document.getElementById('showGuide').checked;
+      const svg = document.getElementById('mainSvg');
+
+      document.getElementById('axisGuide').style.display = (showGuide && mode !== 'outerOnly') ? 'block' : 'none';
+      if (document.getElementById('outerAxisGuide')) {
+        document.getElementById('outerAxisGuide').style.display = (showGuide && (mode === 'both' || mode === 'outerOnly')) ? 'block' : 'none';
+      }
+
+      if (mode === 'both') {
+        svg.setAttribute('viewBox', '0 0 1120 820');
+        svg.style.width = '1120px';
+        document.getElementById('innerCardGroup').style.display = 'block';
+        document.getElementById('outerCoverSideGroup').style.display = 'block';
+        document.getElementById('outerCoverOverlayGroup').style.display = 'none';
+      } else if (mode === 'overlay') {
+        svg.setAttribute('viewBox', '0 0 580 820');
+        svg.style.width = '580px';
+        document.getElementById('innerCardGroup').style.display = 'block';
+        document.getElementById('outerCoverSideGroup').style.display = 'none';
+        document.getElementById('outerCoverOverlayGroup').style.display = 'block';
+      } else if (mode === 'innerOnly') {
+        svg.setAttribute('viewBox', '0 0 580 820');
+        svg.style.width = '580px';
+        document.getElementById('innerCardGroup').style.display = 'block';
+        document.getElementById('outerCoverSideGroup').style.display = 'none';
+        document.getElementById('outerCoverOverlayGroup').style.display = 'none';
+      } else if (mode === 'outerOnly') {
+        svg.setAttribute('viewBox', '540 0 580 820');
+        svg.style.width = '580px';
+        document.getElementById('innerCardGroup').style.display = 'none';
+        document.getElementById('outerCoverSideGroup').style.display = 'block';
+        document.getElementById('outerCoverOverlayGroup').style.display = 'none';
+      }
+    }
+    // Initialize layout on page load
+    updateLayout();
+  </script>
+</body>
+</html>
